@@ -7,17 +7,12 @@
  */
 
 
-var WebSocketClient = require('websocket').client;
-var client = new WebSocketClient();
-var events = require('events');
-var dliveEmitter = new events.EventEmitter();
+const WebSocketClient = require('websocket').client;
+const client = new WebSocketClient();
+const dliveInit = require('./dliveInit');
+const events = require('events').EventEmitter;
 
-module.exports = {
-  socket: WebSocketClient,
-  client: client,
-  events: events,
-  dliveEmitter: dliveEmitter
-};
 
-var init = require('./init');
-module.exports = init;
+global.dlive_Client = client;
+global.dlive_Event = new events();
+global.dlive_Init = dliveInit;

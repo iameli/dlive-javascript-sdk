@@ -1,13 +1,13 @@
-const main = require('./dlive');
+require('./dlive.js');
 
-/////////////////////////////////////////////////
-
-class init {
+module.exports = class dliveInit {
 
     connect(username) {
+        dlive_Client.on('connectFailed', function (error) {
+            console.log('Connect Error: ' + error.toString());
+        });
 
-        connection.on('connect', function (connection) {
-            console.log('WebSocket Client Connected');
+        dlive_Client.on('connect', function (connection) {
             connection.sendUTF(
                 JSON.stringify({
                     type: 'connection_init',
@@ -46,8 +46,7 @@ class init {
                     if (message.payload !== undefined) {
                         let remMessage = message.payload.data.streamMessageReceived['0'];
                         if (remMessage.__typename === 'ChatText') {
-                            main.dliveEmitter.emit('ChatText', remMessage);
-                            console.log(`Event: '${remMessage.__typename}'`);
+                            dlive_Event.emit('ChatText', remMessage);
                         } else {
                             console.log(`Not handled type: '${remMessage.__typename}'`);
                         }
@@ -56,9 +55,7 @@ class init {
             });
         });
 
-        main.client.connect('wss://graphigostream.prd.dlive.tv', 'graphql-ws');
+        dlive_Client.connect('wss://graphigostream.prd.dlive.tv', 'graphql-ws');
     }
 
 }
-
-module.exports = init;
