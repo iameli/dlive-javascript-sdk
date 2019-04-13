@@ -1,7 +1,7 @@
 {
-  "name": "dlive-inofficial-api",
-  "version": "2.0.1",
-  "homepage": "https://github.com/timedotcc/dlive-inofficial-api#readme",
+  "name": "dlive-unofficial-api",
+  "version": "2.0.2",
+  "homepage": "https://github.com/timedotcc/dlive-unofficial-api#readme",
   "description": "inofficial dlive.tv api",
   "main": "dlive.js",
   "dependencies": {

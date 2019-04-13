@@ -1,5 +1,5 @@
 
-# Welcome to DLive inofficial API!
+# Welcome to DLive unofficial API!
 
 Hi! This API is still in the development stage.   
 However, here you can find some examples of what the API can do.  
