@@ -6,13 +6,52 @@
 
  */
 
+module.exports = class dlive {
 
-const WebSocketClient = require('websocket').client;
-const client = new WebSocketClient();
-const dliveInit = require('./dliveInit');
-const events = require('events').EventEmitter;
+    constructor() {
+        this.authkey = '';
+        this.channel = '';
+
+        this.dliveInit = require('./dliveInit');
+        this.event = require('events').EventEmitter;
+        this.events = new this.event();
+        this.websocketclient = require('websocket').client;
+        this.client = new this.websocketclient();
+    }
 
 
-global.dlive_Client = client;
-global.dlive_Event = new events();
-global.dlive_Init = dliveInit;
+    get getAuthkey() {
+        return this.authkey;
+    }
+
+    get getChannel() {
+        return this.channel;
+    }
+
+    set setAuthkey(authkey) {
+        //console.log('set authkey...');
+        this.authkey = authkey;
+    }
+
+    set setChannel(channel) {
+        //console.log('set channel...');
+        this.channel = channel;
+    }
+
+    get getWebsocketclient() {
+        return this.websocketclient;
+    }
+
+    get getClient() {
+        return this.client;
+    }
+
+    doInit(channel, authkey) {
+        return new this.dliveInit(channel, authkey);
+    }
+
+    get getEvents() {
+        return this.events;
+    }
+
+};

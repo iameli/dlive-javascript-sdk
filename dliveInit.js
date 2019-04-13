@@ -1,13 +1,16 @@
-require('./dlive.js');
-
 module.exports = class dliveInit {
 
-    connect(username) {
-        dlive_Client.on('connectFailed', function (error) {
+    constructor(main, channel, authkey) {
+        this.main = main;
+        this.main.setChannel = channel;
+        this.main.setAuthkey = authkey;
+
+        this.main.getClient.on('connectFailed', function (error) {
             console.log('Connect Error: ' + error.toString());
         });
 
-        dlive_Client.on('connect', function (connection) {
+        this.main.getClient.on('connect', function (connection) {
+            console.log('Joining ' + main.getChannel);
             connection.sendUTF(
                 JSON.stringify({
                     type: 'connection_init',
@@ -20,7 +23,7 @@ module.exports = class dliveInit {
                     type: 'start',
                     payload: {
                         variables: {
-                            streamer: username
+                            streamer: channel
                         },
                         extensions: {},
                         operationName: 'StreamMessageSubscription',
@@ -47,11 +50,11 @@ module.exports = class dliveInit {
 
                         let remMessage = message.payload.data.streamMessageReceived['0'];
                         if (remMessage.__typename === 'ChatText') {
-                            dlive_Event.emit('ChatText', remMessage);
+                            main.getEvents.emit('ChatText', remMessage);
                         } else if (remMessage.__typename === 'ChatGift') {
-                            dlive_Event.emit('ChatGift', remMessage);
+                            main.getEvents.emit('ChatGift', remMessage);
                         } else if (remMessage.__typename === 'ChatFollow') {
-                            dlive_Event.emit('ChatFollow', remMessage);
+                            main.getEvents.emit('ChatFollow', remMessage);
                         } else {
                             console.log(`Not handled type: '${remMessage.__typename}'`);
                         }
@@ -60,7 +63,6 @@ module.exports = class dliveInit {
             });
         });
 
-        dlive_Client.connect('wss://graphigostream.prd.dlive.tv', 'graphql-ws');
+        main.getClient.connect('wss://graphigostream.prd.dlive.tv', 'graphql-ws');
     }
-
 }
