@@ -10,7 +10,7 @@ However, here you can find some examples of what the API can do.
 ```js
 require('dlive-inofficial-api');  
   
-new dlive_Init().connect('pdp'); // Connect to PewDiePie   
+new dliveInit().connect('pdp'); // Connect to PewDiePie   
 
 dlive_Event.on('ChatText', (message) => { // Get channel messages  
   console.log(message);  
@@ -19,14 +19,13 @@ dlive_Event.on('ChatText', (message) => { // Get channel messages
 ## Todo
 
  - Message types:
-     - [X] ChatText
-	 - [X] ChatFollow
-	 - [X] ChatGift
+	 - [ ] ChatFollow
+	 - [ ] ChatGift
 - [ ] Send messages
 - [ ] Get channel informations
 	 
 
-#### Example result: message from the ChatText event above.
+#### Example result: message from the event above.
 ```
 { __typename: 'ChatText',
   type: 'Message',
