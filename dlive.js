@@ -13,8 +13,11 @@ var events = require('events');
 var dliveEmitter = new events.EventEmitter();
 
 module.exports = {
-    socket: WebSocketClient,
-    client: client,
-    events: events,
-    dliveEmitter: dliveEmitter
+  socket: WebSocketClient,
+  client: client,
+  events: events,
+  dliveEmitter: dliveEmitter
 };
+
+var init = require('./init');
+module.exports = init;
