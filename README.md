@@ -4,7 +4,7 @@
 Hi! This API is still in the development stage.   
 However, here you can find some examples of what the API can do.  
   
-  [![NPM](https://nodei.co/npm/dlive-inofficial-api.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/dlive-inofficial-api/)
+  [![NPM](https://nodei.co/npm/dlive-unofficial-api.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/dlive-unofficial-api/)
 
 
 ## Example
