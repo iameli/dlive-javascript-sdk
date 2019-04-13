@@ -26,7 +26,15 @@ example1.events.on('ChatText', (message) => {
 // Now let's create a second instance
 example2.doInit(example2, 'dlive-12278051', 'abcde'); // Joining sampepper
 example2.events.on('ChatText', (message) => {
-    console.log(`Messages in Channel ${example2.getChannel}: ${message.content}`)
+    console.log(`Messages in Channel ${example2.getChannel}: ${message.content}`);
+});
+example2.events.on('ChatFollow', (message) => {
+    // Say thanks to this user for his follow!
+    console.log(`Thanks for the follow, ${message.sender.displayname}`);
+});
+example2.events.on('ChatGift', (message) => {
+    // Say thanks to this user for his gift!
+    console.log(`Thanks for ${message.amount}x ${message.gift}, ${message.sender.displayname}`);
 });
 ```
 ## Todo
