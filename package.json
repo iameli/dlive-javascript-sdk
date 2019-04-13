@@ -1,5 +1,5 @@
 {
-  "name": "dlive-inofficial-api",
+  "name": "@timedotcc/dlive-inofficial-api",
   "version": "1.0.0",
   "description": "inofficial dlive.tv api",
   "main": "dlive.js",
@@ -11,5 +11,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nils Kleinert",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timedotcc/dlive-inofficial-api.git"
+  },
+  "keywords": [
+    "dlive",
+    "api"
+  ],
+  "bugs": {
+    "url": "https://github.com/timedotcc/dlive-inofficial-api/issues"
+  },
+  "homepage": "https://github.com/timedotcc/dlive-inofficial-api#readme"
 }
