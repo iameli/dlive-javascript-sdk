@@ -9,24 +9,24 @@ However, here you can find some examples of what the API can do.
 
 ## Example
 ```js
-const dlive = require('./dlive');  
-  
-let example1 = new dlive();  
-let example2 = new dlive();  
-  
-// Parameter 1: the intance
+let dlive = require('dlive-inofficial-api');
+
+let example1 = new dlive();
+let example2 = new dlive();
+
+// Parameter 1: the instance
 // Parameter 2: the channel name / blockchain username
 // Parameter 3: Your access key for sending messages
 
 example1.doInit(example1, 'pdp', 'abcde'); // Joining PewDiePie
-example1.events.on('ChatText', (message) => {  
-    console.log(`Messages in Channel ${example1.getChannel}: ${message.content}`)  
-});  
- 
+example1.events.on('ChatText', (message) => {
+    console.log(`Messages in Channel ${example1.getChannel}: ${message.content}`)
+});
+
 // Now let's create a second instance
 example2.doInit(example2, 'dlive-12278051', 'abcde'); // Joining sampepper
-example2.events.on('ChatText', (message) => {  
-    console.log(`Messages in Channel ${example2.getChannel}: ${message.content}`)  
+example2.events.on('ChatText', (message) => {
+    console.log(`Messages in Channel ${example2.getChannel}: ${message.content}`)
 });
 ```
 ## Todo
