@@ -44,9 +44,14 @@ module.exports = class dliveInit {
                     message = JSON.parse(message.utf8Data);
 
                     if (message.payload !== undefined) {
+
                         let remMessage = message.payload.data.streamMessageReceived['0'];
                         if (remMessage.__typename === 'ChatText') {
                             dlive_Event.emit('ChatText', remMessage);
+                        } else if (remMessage.__typename === 'ChatGift') {
+                            dlive_Event.emit('ChatGift', remMessage);
+                        } else if (remMessage.__typename === 'ChatFollow') {
+                            dlive_Event.emit('ChatFollow', remMessage);
                         } else {
                             console.log(`Not handled type: '${remMessage.__typename}'`);
                         }
