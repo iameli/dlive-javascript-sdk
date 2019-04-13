@@ -9,7 +9,7 @@ However, here you can find some examples of what the API can do.
 
 ## Example
 ```js
-let dlive = require('dlive-inofficial-api');
+let dlive = require('dlive-unofficial-api');
 
 let example1 = new dlive();
 let example2 = new dlive();
