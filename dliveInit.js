@@ -57,7 +57,7 @@ class dliveInit extends dlive {
                             _this.emit('ChatGift', remMessage);
                         } else if (remMessage.__typename === 'ChatFollow') {
                             _this.emit('ChatFollow', remMessage);
-                        } else if(remMessage.__typename === 'ChatDelete') {
+                        } else if (remMessage.__typename === 'ChatDelete') {
                             _this.emit('ChatDelete', remMessage);
                         } else {
                             console.log(`Not handled type: '${remMessage.__typename}'`);
@@ -70,7 +70,7 @@ class dliveInit extends dlive {
         _this.client.connect('wss://graphigostream.prd.dlive.tv', 'graphql-ws');
     }
 
-    sendMessage(message) {
+    sendChatMessage(message) {
         let postData = JSON.stringify({
             operationName: 'SendStreamChatMessage',
             query: `mutation SendStreamChatMessage($input: SendStreamchatMessageInput!) {
@@ -117,7 +117,12 @@ class dliveInit extends dlive {
                 }
             }
         });
-        new this.request(this.getChannel, postData, (result) => {});
+        new this.request(this.getAuthkey, postData, (result) => {
+            result = JSON.parse(result);
+            if (result.errors !== undefined) {
+                throw new Error('Your access key is invalid!');
+            }
+        });
     };
 
     sendMessageToChannelChat(channel, message) {
@@ -167,7 +172,12 @@ class dliveInit extends dlive {
                 }
             }
         });
-        new this.request(this.getAuthkey, postData, (result) => {});
+        new this.request(this.getAuthkey, postData, (result) => {
+            result = JSON.parse(result);
+            if (result.errors !== undefined) {
+                throw new Error('Your access key is invalid!');
+            }
+        });
     };
 
     getChannelInformation(displayName, callback) {
@@ -175,13 +185,17 @@ class dliveInit extends dlive {
             "operationName": "LivestreamPage",
             "variables": {
                 "displayname": displayName,
-                "add": false, 
+                "add": false,
                 "isLoggedIn": true
             },
             "query": "query LivestreamPage($displayname: String!, $add: Boolean!, $isLoggedIn: Boolean!) {\n  userByDisplayName(displayname: $displayname) {\n    id\n    ...VDliveAvatarFrag\n    ...VDliveNameFrag\n    ...VFollowFrag\n    ...VSubscriptionFrag\n    banStatus\n    about\n    avatar\n    myRoomRole @include(if: $isLoggedIn)\n    isMe @include(if: $isLoggedIn)\n    isSubscribing @include(if: $isLoggedIn)\n    livestream {\n      id\n      permlink\n      watchTime(add: $add)\n      ...LivestreamInfoFrag\n      ...VVideoPlayerFrag\n      __typename\n    }\n    hostingLivestream {\n      id\n      creator {\n        ...VDliveAvatarFrag\n        displayname\n        username\n        __typename\n      }\n      ...VVideoPlayerFrag\n      __typename\n    }\n    ...LivestreamProfileFrag\n    __typename\n  }\n}\n\nfragment LivestreamInfoFrag on Livestream {\n  category {\n    title\n    imgUrl\n    id\n    backendID\n    __typename\n  }\n  title\n  watchingCount\n  totalReward\n  ...VDonationGiftFrag\n  ...VPostInfoShareFrag\n  __typename\n}\n\nfragment VDonationGiftFrag on Post {\n  permlink\n  creator {\n    username\n    __typename\n  }\n  __typename\n}\n\nfragment VPostInfoShareFrag on Post {\n  permlink\n  title\n  content\n  category {\n    id\n    backendID\n    title\n    __typename\n  }\n  __typename\n}\n\nfragment VDliveAvatarFrag on User {\n  avatar\n  __typename\n}\n\nfragment VDliveNameFrag on User {\n  displayname\n  partnerStatus\n  __typename\n}\n\nfragment LivestreamProfileFrag on User {\n  isMe @include(if: $isLoggedIn)\n  canSubscribe\n  private @include(if: $isLoggedIn) {\n    subscribers {\n      totalCount\n      __typename\n    }\n    __typename\n  }\n  videos {\n    totalCount\n    __typename\n  }\n  pastBroadcasts {\n    totalCount\n    __typename\n  }\n  followers {\n    totalCount\n    __typename\n  }\n  following {\n    totalCount\n    __typename\n  }\n  ...ProfileAboutFrag\n  __typename\n}\n\nfragment ProfileAboutFrag on User {\n  id\n  about\n  __typename\n}\n\nfragment VVideoPlayerFrag on Livestream {\n  disableAlert\n  category {\n    id\n    title\n    __typename\n  }\n  language {\n    language\n    __typename\n  }\n  __typename\n}\n\nfragment VFollowFrag on User {\n  id\n  username\n  displayname\n  isFollowing @include(if: $isLoggedIn)\n  isMe @include(if: $isLoggedIn)\n  followers {\n    totalCount\n    __typename\n  }\n  __typename\n}\n\nfragment VSubscriptionFrag on User {\n  id\n  username\n  displayname\n  isSubscribing @include(if: $isLoggedIn)\n  canSubscribe\n  isMe @include(if: $isLoggedIn)\n  __typename\n}\n"
         });
         new this.request(this.getAuthkey, postData, (result) => {
             result = JSON.parse(result);
+            if (result.errors !== undefined) {
+                throw new Error('Your access key is invalid!');
+            }
+            
             callback(result.data.userByDisplayName);
         });
     };

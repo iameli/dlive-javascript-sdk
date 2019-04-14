@@ -7,17 +7,17 @@ class dliver extends dliveInit {
     }
 
     sendMessage(message) {
-        if (!this.initalized) return new Error("You have to create a class instance first!");
+        if (!this.initalized) return throw new Error("You have to create a class instance first!");
         this.sendChatMessage(message);
     }
 
     sendMessageToChannel(channel, message) {
-        if (!this.initalized) return new Error("You have to create a class instance first!");
+        if (!this.initalized) return throw new Error("You have to create a class instance first!");
         this.sendMessageToChannelChat(channel, message);
     }
 
     getChannelInformations(displayname, callback) {
-        if (!this.initalized) return new Error("You have to create a class instance first!");
+        if (!this.initalized) return throw new Error("You have to create a class instance first!");
         this.getChannelInformation(displayname, (result) => {
             callback(result);
         });

@@ -15,5 +15,7 @@
   },
   "author": "Nils Kleinert",
   "license": "MIT",
-  "contributors": ["Captien"]
+  "contributors": [
+    "Captien"
+  ]
 }
