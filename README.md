@@ -1,11 +1,15 @@
-
-# Welcome to DLive unofficial API!
-
-Hi! This API is still in the development stage.   
-However, here you can find some examples of what the API can do.  
-  
-  [![NPM](https://nodei.co/npm/dlivetv-unofficial-api.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/dlivetv-unofficial-api/)
-
+<p align="center">
+    <a href="https://discord.js.org"><img src="https://i.imgur.com/XXdD3AH.png" /></a>
+    <br />
+    <br />
+    <a href="https://discord.gg/hRWra7r"><img src="https://discordapp.com/api/guilds/567034368002883594/embed.png" alt="Discord server" /></a>
+    <a href="https://www.npmjs.com/package/dlivetv-unofficial-api"><img src="https://img.shields.io/npm/v/dlivetv-unofficial-api.svg?maxAge=3600" alt="NPM version" /></a>
+    <a href="https://www.npmjs.com/package/dlivetv-unofficial-api"><img src="https://img.shields.io/npm/dt/dlivetv-unofficial-api.svg?maxAge=3600" alt="NPM downloads" /></a>
+    <a href="https://www.patreon.com/discordjs"><img src="https://img.shields.io/badge/Donate-PayPal-0070ba.svg" alt="Patreon" /></a>
+    <br />
+    <br />
+    <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img src="https://nodei.co/npm/dlivetv-unofficial-api.png?compact=true"></a>
+</p>
 
 ## Example
 ```js
@@ -14,8 +18,9 @@ let dlive = require('dlivetv-inofficial-api');
 let example1 = new dlive();
 let example2 = new dlive();
 
-// Parameter 1: the channel name / blockchain username
-// Parameter 2: Your access key for sending messages
+// Parameter 1: the instance
+// Parameter 2: the channel name / blockchain username
+// Parameter 3: Your access key for sending messages
 
 example1.doInit('pdp', 'abc'); // Joining PewDiePie
 example1.events.on('ChatText', (message) => {

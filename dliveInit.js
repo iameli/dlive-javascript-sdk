@@ -117,6 +117,56 @@ module.exports = class dliveInit {
         new this.main.request(this.main.getAuthkey, postData, (result) => {});
     };
 
+    sendMessageToChannel(channel, message) {
+        let postData = JSON.stringify({
+            operationName: 'SendStreamChatMessage',
+            query: `mutation SendStreamChatMessage($input: SendStreamchatMessageInput!) {
+                sendStreamchatMessage(input: $input) {
+                  err {
+                    code
+                    __typename
+                  }
+                  message {
+                    type
+                    ... on ChatText {
+                      id
+                      content
+                      ...VStreamChatSenderInfoFrag
+                      __typename
+                    }
+                    __typename
+                  }
+                  __typename
+                }
+              }
+              
+              fragment VStreamChatSenderInfoFrag on SenderInfo {
+                subscribing
+                role
+                roomRole
+                sender {
+                  id
+                  username
+                  displayname
+                  avatar
+                  partnerStatus
+                  __typename
+                }
+                __typename
+              }
+              `,
+            variables: {
+                input: {
+                    streamer: channel,
+                    message: message,
+                    roomRole: 'Moderator',
+                    subscribing: true
+                }
+            }
+        });
+        new this.main.request(this.main.getAuthkey, postData, (result) => {});
+    };
+
     getChannelInformations(displayName, callback) {
         let postData = JSON.stringify({
             "operationName": "LivestreamPage",
