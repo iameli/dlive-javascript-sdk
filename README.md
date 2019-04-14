@@ -4,7 +4,7 @@
     <br />
     <a href="https://discord.gg/hRWra7r"><img src="https://discordapp.com/api/guilds/567034368002883594/embed.png" alt="Discord server" /></a>
     <a href="https://www.npmjs.com/package/dlivetv-unofficial-api"><img src="https://img.shields.io/npm/v/dlivetv-unofficial-api.svg?maxAge=3600" alt="NPM version" /></a>
-    <img src="https://api.codacy.com/project/badge/Grade/f75770899e224c5383b17f583fdc008d" /> 
+    <a href="https://www.codacy.com/app/nikl/dlivetv-unofficial-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=timedotcc/dlivetv-unofficial-api&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/f75770899e224c5383b17f583fdc008d"/></a>
     <a href="https://www.patreon.com/dliveapi"><img src="https://img.shields.io/badge/Donate-Patreon-e85b46.svg" alt="Patreon" /></a>
     <br />
     <br />
