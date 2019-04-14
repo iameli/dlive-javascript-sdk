@@ -49,24 +49,7 @@ example2.events.on('ChatGift', (message) => {
 	 - [X] ChatDelete
 - [X] Send messages
 - [X] Get channel informations
-	 
 
-#### Example result: message from the ChatText event above.
-```
-{ __typename: 'ChatText',
-  type: 'Message',
-  id: '*CENSORED*',
-  content: '*CENSORED*',
-  createdAt: '1555167390757848975',
-  sender:
-   { __typename: 'StreamchatUser',
-     id: 'streamchatuser:dlive-*CENSORED*',
-     username: 'dlive-*CENSORED*',
-     displayname: '*CENSORED*',
-     avatar:
-      '*CENSORED*',
-     partnerStatus: 'NONE' },
-  role: 'None',
-  roomRole: 'Member',
-  subscribing: false }
-```
+## Examples and functions
+	 
+More [examples](https://github.com/timedotcc/dlivetv-unofficial-api/wiki/Examples) and [functions](https://github.com/timedotcc/dlivetv-unofficial-api/wiki/Functions) can you find in our [wiki](https://github.com/timedotcc/dlivetv-unofficial-api/wiki).
