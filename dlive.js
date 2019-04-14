@@ -59,6 +59,15 @@ module.exports = class dlive {
         this.init.sendMessage(message);
     }
 
+    getChannelInformations(displayname, callback) {
+        if (this.init === null) {
+            return console.log('You have to create an instance first!');
+        }
+        this.init.getChannelInformations(displayname, (result) => {
+            callback(result);
+        });
+    }
+
     get getEvents() {
         return this.events;
     }

@@ -1,9 +1,8 @@
 module.exports = class WebRequest {
 
-    constructor(authKey, postData) {
+    constructor(authKey, postData, callback) {
         this.https = require('https');
-
-        let body, req = this.https.request({
+        let req = this.https.request({
             hostname: 'graphigo.prd.dlive.tv',
             port: 443,
             path: '/',
@@ -19,8 +18,9 @@ module.exports = class WebRequest {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'
             }
         }, res => {
+            res.setEncoding('utf8');
             res.on('data', chunk => {
-                body += chunk;
+                callback(chunk);
             });
         });
         req.write(postData);
