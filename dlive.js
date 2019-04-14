@@ -43,9 +43,9 @@ module.exports = class dlive {
         return this.client;
     }
 
-    doInit(main, channel, authkey) {
+    doInit(channel, authkey) {
         if (this.init === null) {
-            this.init = new this.dliveInit(main, channel, authkey);
+            this.init = new this.dliveInit(this, channel, authkey);
             return this.init;
         } else {
             return this.init;
