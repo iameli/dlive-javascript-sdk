@@ -3,7 +3,7 @@
   "version": "2.0.5",
   "homepage": "https://github.com/timedotcc/dlivetv-unofficial-api#readme",
   "description": "Unofficial dlive.tv api",
-  "main": "dlive.js",
+  "main": "index.js",
   "dependencies": {
     "events": "^3.0.0",
     "https": "^1.0.0",
@@ -14,5 +14,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nils Kleinert",
-  "license": "MIT"
+  "license": "MIT",
+  "contributors": ["Captien"]
 }
