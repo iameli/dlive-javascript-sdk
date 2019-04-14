@@ -48,7 +48,7 @@ example2.events.on('ChatGift', (message) => {
 	 - [X] ChatGift
 	 - [X] ChatDelete
 - [X] Send messages
-- [ ] Get channel informations
+- [X] Get channel informations
 	 
 
 #### Example result: message from the ChatText event above.
