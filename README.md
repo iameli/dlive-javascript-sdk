@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://discord.js.org"><img src="https://i.imgur.com/XXdD3AH.png" /></a>
+    <a href="#"><img src="https://i.imgur.com/XXdD3AH.png" /></a>
     <br />
     <br />
     <a href="https://discord.gg/hRWra7r"><img src="https://discordapp.com/api/guilds/567034368002883594/embed.png" alt="Discord server" /></a>
@@ -21,7 +21,7 @@ let dlive = require('dlivetv-unofficial-api');
 let example1 = new dlive('pdp', 'abc');  // Joining PewDiePie
 let example2 = new dlive('dlive-12278051', 'abc');  // Joining sampepper
 
-example1.events.on('ChatText', (message) => {
+example1.on('ChatText', (message) => {
     console.log(`Messages in Channel ${example1.getChannel}: ${message.content}`);
 });
 
