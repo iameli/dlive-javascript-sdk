@@ -1,5 +1,5 @@
 <p align="center">
-    <a href="https://discord.js.org"><img src="https://i.imgur.com/XXdD3AH.png" /></a>
+    <a href="#"><img src="https://i.imgur.com/XXdD3AH.png" /></a>
     <br />
     <br />
     <a href="https://discord.gg/hRWra7r"><img src="https://discordapp.com/api/guilds/567034368002883594/embed.png" alt="Discord server" /></a>
