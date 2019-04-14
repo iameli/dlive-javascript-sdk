@@ -21,7 +21,7 @@ let dlive = require('dlivetv-unofficial-api');
 let example1 = new dlive('pdp', 'abc');  // Joining PewDiePie
 let example2 = new dlive('dlive-12278051', 'abc');  // Joining sampepper
 
-example1.events.on('ChatText', (message) => {
+example1.on('ChatText', (message) => {
     console.log(`Messages in Channel ${example1.getChannel}: ${message.content}`);
 });
 
