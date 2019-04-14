@@ -13,7 +13,7 @@
 
 ## Example
 ```js
-let dlive = require('dlivetv-inofficial-api');
+let dlive = require('dlivetv-unofficial-api');
 
 let example1 = new dlive();
 let example2 = new dlive();
