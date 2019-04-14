@@ -4,13 +4,12 @@ module.exports = class dliveInit {
         this.main = main;
         this.main.setChannel = channel;
         this.main.setAuthkey = authkey;
-
         this.main.getClient.on('connectFailed', function (error) {
             console.log('Connect Error: ' + error.toString());
         });
 
         this.main.getClient.on('connect', function (connection) {
-            console.log('Joining ' + main.getChannel);
+            console.log(`Joining ${main.getChannel}`);
             connection.sendUTF(
                 JSON.stringify({
                     type: 'connection_init',
@@ -65,4 +64,79 @@ module.exports = class dliveInit {
 
         main.getClient.connect('wss://graphigostream.prd.dlive.tv', 'graphql-ws');
     }
+
+    sendMessage(message) {
+        console.log(this.main.getAuthkey);
+
+        let postData = JSON.stringify({
+            operationName: 'SendStreamChatMessage',
+            query: `mutation SendStreamChatMessage($input: SendStreamchatMessageInput!) {
+                sendStreamchatMessage(input: $input) {
+                  err {
+                    code
+                    __typename
+                  }
+                  message {
+                    type
+                    ... on ChatText {
+                      id
+                      content
+                      ...VStreamChatSenderInfoFrag
+                      __typename
+                    }
+                    __typename
+                  }
+                  __typename
+                }
+              }
+              
+              fragment VStreamChatSenderInfoFrag on SenderInfo {
+                subscribing
+                role
+                roomRole
+                sender {
+                  id
+                  username
+                  displayname
+                  avatar
+                  partnerStatus
+                  __typename
+                }
+                __typename
+              }
+              `,
+            variables: {
+                input: {
+                    streamer: this.main.getChannel,
+                    message: message,
+                    roomRole: 'Moderator',
+                    subscribing: true
+                }
+            }
+        });
+
+
+        let body, req = this.main.getHTTPS.request({
+            hostname: 'graphigo.prd.dlive.tv',
+            port: 443,
+            path: '/',
+            method: 'POST',
+            headers: {
+                accept: '*/*',
+                authorization: this.main.getAuthkey,
+                'content-type': 'application/json',
+                fingerprint: '',
+                gacid: 'undefined',
+                Origin: 'https://dlive.tv',
+                Referer: 'https://dlive.tv/creativebuilds',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'
+            }
+        }, res => {
+            res.on('data', chunk => {
+                body += chunk;
+            });
+        });
+        req.write(postData);
+        req.end();
+    };
 }

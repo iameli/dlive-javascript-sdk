@@ -1,11 +1,12 @@
 {
-  "name": "dlive-unofficial-api",
+  "name": "dlivetv-unofficial-api",
   "version": "2.0.2",
   "homepage": "https://github.com/timedotcc/dlive-unofficial-api#readme",
-  "description": "inofficial dlive.tv api",
+  "description": "Unofficial dlive.tv api",
   "main": "dlive.js",
   "dependencies": {
     "events": "^3.0.0",
+    "https": "^1.0.0",
     "websocket": "^1.0.28"
   },
   "devDependencies": {},

@@ -13,10 +13,12 @@ module.exports = class dlive {
         this.channel = '';
 
         this.dliveInit = require('./dliveInit');
+        this.https = require('https');
         this.event = require('events').EventEmitter;
         this.events = new this.event();
         this.websocketclient = require('websocket').client;
         this.client = new this.websocketclient();
+        this.init = null;
     }
 
 
@@ -29,7 +31,6 @@ module.exports = class dlive {
     }
 
     set setAuthkey(authkey) {
-        //console.log('set authkey...');
         this.authkey = authkey;
     }
 
@@ -46,12 +47,29 @@ module.exports = class dlive {
         return this.client;
     }
 
-    doInit(channel, authkey) {
-        return new this.dliveInit(channel, authkey);
+    doInit(main, channel, authkey) {
+        if(this.init === null) {
+            this.init = new this.dliveInit(main, channel, authkey);
+            return this.init;
+        } else {
+            return this.init;
+        }
+    }
+
+    sendMessage(message) {
+        if(this.init === null) {
+            return console.log('You have to create an instance first!');
+        }
+
+        this.init.sendMessage(message);
     }
 
     get getEvents() {
         return this.events;
+    }
+
+    get getHTTPS() {
+        return this.https;
     }
 
 };
