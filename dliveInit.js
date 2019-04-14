@@ -1,15 +1,18 @@
-module.exports = class dliveInit {
+const dlive = require('./dlive');
 
-    constructor(main, channel, authkey) {
-        this.main = main;
-        this.main.setChannel = channel;
-        this.main.setAuthkey = authkey;
-        this.main.getClient.on('connectFailed', function (error) {
+class dliveInit extends dlive {
+
+    constructor(channel, authkey) {
+        super();
+        let _this = this;
+        _this.setChannel = channel;
+        _this.setAuthkey = authkey;
+        _this.client.on('connectFailed', function (error) {
             console.log('Connect Error: ' + error.toString());
         });
 
-        this.main.getClient.on('connect', function (connection) {
-            console.log(`Joining ${main.getChannel}`);
+        _this.client.on('connect', function (connection) {
+            console.log(`Joining ${_this.getChannel}`);
             connection.sendUTF(
                 JSON.stringify({
                     type: 'connection_init',
@@ -49,13 +52,13 @@ module.exports = class dliveInit {
 
                         let remMessage = message.payload.data.streamMessageReceived['0'];
                         if (remMessage.__typename === 'ChatText') {
-                            main.getEvents.emit('ChatText', remMessage);
+                            _this.emit('ChatText', remMessage);
                         } else if (remMessage.__typename === 'ChatGift') {
-                            main.getEvents.emit('ChatGift', remMessage);
+                            _this.emit('ChatGift', remMessage);
                         } else if (remMessage.__typename === 'ChatFollow') {
-                            main.getEvents.emit('ChatFollow', remMessage);
+                            _this.emit('ChatFollow', remMessage);
                         } else if(remMessage.__typename === 'ChatDelete') {
-                            main.getEvents.emit('ChatDelete', remMessage);
+                            _this.emit('ChatDelete', remMessage);
                         } else {
                             console.log(`Not handled type: '${remMessage.__typename}'`);
                         }
@@ -64,7 +67,7 @@ module.exports = class dliveInit {
             });
         });
 
-        main.getClient.connect('wss://graphigostream.prd.dlive.tv', 'graphql-ws');
+        _this.client.connect('wss://graphigostream.prd.dlive.tv', 'graphql-ws');
     }
 
     sendMessage(message) {
@@ -107,17 +110,17 @@ module.exports = class dliveInit {
               `,
             variables: {
                 input: {
-                    streamer: this.main.getChannel,
+                    streamer: this.getChannel,
                     message: message,
                     roomRole: 'Moderator',
                     subscribing: true
                 }
             }
         });
-        new this.main.request(this.main.getAuthkey, postData, (result) => {});
+        new this.request(this.getChannel, postData, (result) => {});
     };
 
-    sendMessageToChannel(channel, message) {
+    sendMessageToChannelChat(channel, message) {
         let postData = JSON.stringify({
             operationName: 'SendStreamChatMessage',
             query: `mutation SendStreamChatMessage($input: SendStreamchatMessageInput!) {
@@ -164,23 +167,25 @@ module.exports = class dliveInit {
                 }
             }
         });
-        new this.main.request(this.main.getAuthkey, postData, (result) => {});
+        new this.request(this.getAuthkey, postData, (result) => {});
     };
 
-    getChannelInformations(displayName, callback) {
+    getChannelInformation(displayName, callback) {
         let postData = JSON.stringify({
             "operationName": "LivestreamPage",
             "variables": {
                 "displayname": displayName,
-                "add": false,
+                "add": false, 
                 "isLoggedIn": true
             },
             "query": "query LivestreamPage($displayname: String!, $add: Boolean!, $isLoggedIn: Boolean!) {\n  userByDisplayName(displayname: $displayname) {\n    id\n    ...VDliveAvatarFrag\n    ...VDliveNameFrag\n    ...VFollowFrag\n    ...VSubscriptionFrag\n    banStatus\n    about\n    avatar\n    myRoomRole @include(if: $isLoggedIn)\n    isMe @include(if: $isLoggedIn)\n    isSubscribing @include(if: $isLoggedIn)\n    livestream {\n      id\n      permlink\n      watchTime(add: $add)\n      ...LivestreamInfoFrag\n      ...VVideoPlayerFrag\n      __typename\n    }\n    hostingLivestream {\n      id\n      creator {\n        ...VDliveAvatarFrag\n        displayname\n        username\n        __typename\n      }\n      ...VVideoPlayerFrag\n      __typename\n    }\n    ...LivestreamProfileFrag\n    __typename\n  }\n}\n\nfragment LivestreamInfoFrag on Livestream {\n  category {\n    title\n    imgUrl\n    id\n    backendID\n    __typename\n  }\n  title\n  watchingCount\n  totalReward\n  ...VDonationGiftFrag\n  ...VPostInfoShareFrag\n  __typename\n}\n\nfragment VDonationGiftFrag on Post {\n  permlink\n  creator {\n    username\n    __typename\n  }\n  __typename\n}\n\nfragment VPostInfoShareFrag on Post {\n  permlink\n  title\n  content\n  category {\n    id\n    backendID\n    title\n    __typename\n  }\n  __typename\n}\n\nfragment VDliveAvatarFrag on User {\n  avatar\n  __typename\n}\n\nfragment VDliveNameFrag on User {\n  displayname\n  partnerStatus\n  __typename\n}\n\nfragment LivestreamProfileFrag on User {\n  isMe @include(if: $isLoggedIn)\n  canSubscribe\n  private @include(if: $isLoggedIn) {\n    subscribers {\n      totalCount\n      __typename\n    }\n    __typename\n  }\n  videos {\n    totalCount\n    __typename\n  }\n  pastBroadcasts {\n    totalCount\n    __typename\n  }\n  followers {\n    totalCount\n    __typename\n  }\n  following {\n    totalCount\n    __typename\n  }\n  ...ProfileAboutFrag\n  __typename\n}\n\nfragment ProfileAboutFrag on User {\n  id\n  about\n  __typename\n}\n\nfragment VVideoPlayerFrag on Livestream {\n  disableAlert\n  category {\n    id\n    title\n    __typename\n  }\n  language {\n    language\n    __typename\n  }\n  __typename\n}\n\nfragment VFollowFrag on User {\n  id\n  username\n  displayname\n  isFollowing @include(if: $isLoggedIn)\n  isMe @include(if: $isLoggedIn)\n  followers {\n    totalCount\n    __typename\n  }\n  __typename\n}\n\nfragment VSubscriptionFrag on User {\n  id\n  username\n  displayname\n  isSubscribing @include(if: $isLoggedIn)\n  canSubscribe\n  isMe @include(if: $isLoggedIn)\n  __typename\n}\n"
         });
-        new this.main.request(this.main.getAuthkey, postData, (result) => {
+        new this.request(this.getAuthkey, postData, (result) => {
             result = JSON.parse(result);
             callback(result.data.userByDisplayName);
         });
     };
 
 };
+
+module.exports = dliveInit;

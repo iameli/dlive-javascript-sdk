@@ -6,19 +6,17 @@
 
  */
 
-module.exports = class dlive {
+const EventEmitter = require('events');
+
+class dlive extends EventEmitter {
 
     constructor() {
+        super();
         this.authkey = '';
         this.channel = '';
-
-        this.dliveInit = require('./dliveInit');
         this.https = require('https');
-        this.event = require('events').EventEmitter;
-        this.events = new this.event();
         this.websocketclient = require('websocket').client;
         this.client = new this.websocketclient();
-        this.init = null;
         this.request = require('./webrequest');
     }
 
@@ -29,6 +27,7 @@ module.exports = class dlive {
 
     get getChannel() {
         return this.channel;
+    
     }
 
     set setAuthkey(authkey) {
@@ -38,53 +37,7 @@ module.exports = class dlive {
     set setChannel(channel) {
         this.channel = channel;
     }
-
-    get getClient() {
-        return this.client;
-    }
-
-    doInit(channel, authkey) {
-        if (this.init === null) {
-            this.init = new this.dliveInit(this, channel, authkey);
-            return this.init;
-        } else {
-            return this.init;
-        }
-    }
-
-    sendMessage(message) {
-        if (this.init === null) {
-            return console.log('You have to create an instance first!');
-        }
-        this.init.sendMessage(message);
-    }
-
-    sendMessageToChannel(channel, message) {
-        if (this.init === null) {
-            return console.log('You have to create an instance first!');
-        }
-        this.init.sendMessageToChannel(channel, message);
-    }
-
-    getChannelInformations(displayname, callback) {
-        if (this.init === null) {
-            return console.log('You have to create an instance first!');
-        }
-        this.init.getChannelInformations(displayname, (result) => {
-            callback(result);
-        });
-    }
-
-    get getEvents() {
-        return this.events;
-    }
-
-    get getHTTPS() {
-        return this.https;
-    }
-
-    get getRequest() {
-        return this.request;
-    }
-
+    
 };
+
+module.exports = dlive;
