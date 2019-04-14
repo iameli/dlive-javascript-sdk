@@ -18,9 +18,8 @@ let dlive = require('dlivetv-unofficial-api');
 let example1 = new dlive();
 let example2 = new dlive();
 
-// Parameter 1: the instance
-// Parameter 2: the channel name / blockchain username
-// Parameter 3: Your access key for sending messages
+// Parameter 1: the channel name / blockchain username
+// Parameter 2: Your access key for sending messages
 
 example1.doInit('pdp', 'abc'); // Joining PewDiePie
 example1.events.on('ChatText', (message) => {
