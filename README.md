@@ -14,7 +14,7 @@ let dlive = require('dlivetv-inofficial-api');
 let example1 = new dlive();
 let example2 = new dlive();
 
-// Parameter 1: the intance
+// Parameter 1: the instance
 // Parameter 2: the channel name / blockchain username
 // Parameter 3: Your access key for sending messages
 
