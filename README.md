@@ -5,7 +5,7 @@
     <a href="https://discord.gg/hRWra7r"><img src="https://discordapp.com/api/guilds/567034368002883594/embed.png" alt="Discord server" /></a>
     <a href="https://www.npmjs.com/package/dlivetv-unofficial-api"><img src="https://img.shields.io/npm/v/dlivetv-unofficial-api.svg?maxAge=3600" alt="NPM version" /></a>
     <a href="https://www.npmjs.com/package/dlivetv-unofficial-api"><img src="https://img.shields.io/npm/dt/dlivetv-unofficial-api.svg?maxAge=3600" alt="NPM downloads" /></a>
-    <a href="https://www.patreon.com/discordjs"><img src="https://img.shields.io/badge/Donate-PayPal-0070ba.svg" alt="Patreon" /></a>
+    <a href="https://www.patreon.com/dliveapi"><img src="https://img.shields.io/badge/Donate-PayPal-0070ba.svg" alt="Patreon" /></a>
     <br />
     <br />
     <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img src="https://nodei.co/npm/dlivetv-unofficial-api.png?compact=true"></a>
