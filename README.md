@@ -15,30 +15,26 @@
 ```js
 let dlive = require('dlivetv-unofficial-api');
 
-let example1 = new dlive();
-let example2 = new dlive();
-
 // Parameter 1: the channel name / blockchain username
 // Parameter 2: Your access key for sending messages
 
-example1.doInit('pdp', 'abc'); // Joining PewDiePie
+let example1 = new dlive('pdp', 'abc');  // Joining PewDiePie
+let example2 = new dlive('dlive-12278051', 'abc');  // Joining sampepper
+
 example1.events.on('ChatText', (message) => {
     console.log(`Messages in Channel ${example1.getChannel}: ${message.content}`);
 });
 
-
-// Now let's create a second instance
-example2.doInit('dlive-12278051', 'abc'); // Joining sampepper
 example2.sendMessage('Hello! Its me, a bot.');
 
-example2.events.on('ChatText', (message) => {
+example2.on('ChatText', (message) => {
     console.log(`Messages in Channel ${example2.getChannel}: ${message.content}`);
 });
-example2.events.on('ChatFollow', (message) => {
+example2.on('ChatFollow', (message) => {
     // Say thanks to this user for his follow!
     example2.sendMessage(`Thanks for the follow, @${message.sender.displayname}`);
 });
-example2.events.on('ChatGift', (message) => {
+example2.on('ChatGift', (message) => {
     // Say thanks to this user for his gift!
     example2.sendMessage(`Thanks for ${message.amount}x ${message.gift}, @${message.sender.displayname}`);
 });
