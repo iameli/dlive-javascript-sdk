@@ -19,6 +19,7 @@ module.exports = class dlive {
         this.websocketclient = require('websocket').client;
         this.client = new this.websocketclient();
         this.init = null;
+        this.request = require('./webrequest');
     }
 
 
@@ -35,12 +36,7 @@ module.exports = class dlive {
     }
 
     set setChannel(channel) {
-        //console.log('set channel...');
         this.channel = channel;
-    }
-
-    get getWebsocketclient() {
-        return this.websocketclient;
     }
 
     get getClient() {
@@ -48,7 +44,7 @@ module.exports = class dlive {
     }
 
     doInit(main, channel, authkey) {
-        if(this.init === null) {
+        if (this.init === null) {
             this.init = new this.dliveInit(main, channel, authkey);
             return this.init;
         } else {
@@ -57,10 +53,9 @@ module.exports = class dlive {
     }
 
     sendMessage(message) {
-        if(this.init === null) {
+        if (this.init === null) {
             return console.log('You have to create an instance first!');
         }
-
         this.init.sendMessage(message);
     }
 
@@ -70,6 +65,10 @@ module.exports = class dlive {
 
     get getHTTPS() {
         return this.https;
+    }
+
+    get getRequest() {
+        return this.request;
     }
 
 };

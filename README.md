@@ -46,7 +46,8 @@ example2.events.on('ChatGift', (message) => {
      - [X] ChatText
 	 - [X] ChatFollow
 	 - [X] ChatGift
-- [ ] Send messages
+	 - [X] ChatDelete
+- [X] Send messages
 - [ ] Get channel informations
 	 
 

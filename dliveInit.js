@@ -54,6 +54,8 @@ module.exports = class dliveInit {
                             main.getEvents.emit('ChatGift', remMessage);
                         } else if (remMessage.__typename === 'ChatFollow') {
                             main.getEvents.emit('ChatFollow', remMessage);
+                        } else if(remMessage.__typename === 'ChatDelete') {
+                            main.getEvents.emit('ChatDelete', remMessage);
                         } else {
                             console.log(`Not handled type: '${remMessage.__typename}'`);
                         }
@@ -66,8 +68,6 @@ module.exports = class dliveInit {
     }
 
     sendMessage(message) {
-        console.log(this.main.getAuthkey);
-
         let postData = JSON.stringify({
             operationName: 'SendStreamChatMessage',
             query: `mutation SendStreamChatMessage($input: SendStreamchatMessageInput!) {
@@ -114,29 +114,6 @@ module.exports = class dliveInit {
                 }
             }
         });
-
-
-        let body, req = this.main.getHTTPS.request({
-            hostname: 'graphigo.prd.dlive.tv',
-            port: 443,
-            path: '/',
-            method: 'POST',
-            headers: {
-                accept: '*/*',
-                authorization: this.main.getAuthkey,
-                'content-type': 'application/json',
-                fingerprint: '',
-                gacid: 'undefined',
-                Origin: 'https://dlive.tv',
-                Referer: 'https://dlive.tv/creativebuilds',
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36'
-            }
-        }, res => {
-            res.on('data', chunk => {
-                body += chunk;
-            });
-        });
-        req.write(postData);
-        req.end();
+        new this.main.request(this.main.getAuthkey, postData);
     };
 }
