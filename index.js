@@ -16,7 +16,7 @@ class dliver extends dliveInit {
         this.sendMessageToChannelChat(channel, message);
     }
 
-    getChannelInformations(displayname, callback) {
+    getChannelInformation(displayname, callback) {
         if (!this.initalized) return throw new Error("You have to create a class instance first!");
         this.getChannelInformation(displayname, (result) => {
             callback(result);
