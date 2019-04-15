@@ -51,17 +51,21 @@ class dliveInit extends dlive {
                     if (message.payload !== undefined) {
 
                         let remMessage = message.payload.data.streamMessageReceived['0'];
-                        if (remMessage.__typename === 'ChatText') {
-                            _this.emit('ChatText', remMessage);
-                        } else if (remMessage.__typename === 'ChatGift') {
-                            _this.emit('ChatGift', remMessage);
-                        } else if (remMessage.__typename === 'ChatFollow') {
-                            _this.emit('ChatFollow', remMessage);
-                        } else if (remMessage.__typename === 'ChatDelete') {
-                            _this.emit('ChatDelete', remMessage);
-                        } else {
-                            throw new Error(`Not handled type: '${remMessage.__typename}'`);
-                        }
+						if (remMessage.__typename === 'ChatText') {
+							_this.emit('ChatText', remMessage);
+						} else if (remMessage.__typename === 'ChatGift') {
+							_this.emit('ChatGift', remMessage);
+						} else if (remMessage.__typename === 'ChatFollow') {
+							_this.emit('ChatFollow', remMessage);
+						} else if (remMessage.__typename === 'ChatDelete') {
+							_this.emit('ChatDelete', remMessage);
+						} else if (remMessage.__typename === 'ChatOffline') {
+							_this.emit('ChatOffline', remMessage);
+						} else if (remMessage.__typename === 'ChatLive') {
+							_this.emit('ChatLive', remMessage);
+						} else {
+							throw new Error(`Not handled type: '${remMessage.__typename}'`);
+						}
                     }
                 }
             });
