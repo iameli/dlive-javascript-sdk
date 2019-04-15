@@ -1,11 +1,12 @@
+
 <p align="center">
     <a href="#"><img src="https://i.imgur.com/XXdD3AH.png" /></a>
     <br />
     <br />
-    <a href="https://discord.gg/hRWra7r"><img src="https://discordapp.com/api/guilds/567034368002883594/embed.png" alt="Discord server" /></a>
-    <a href="https://www.npmjs.com/package/dlivetv-unofficial-api"><img src="https://img.shields.io/npm/v/dlivetv-unofficial-api.svg?maxAge=3600" alt="NPM version" /></a>
-    <a href="https://www.codacy.com/app/nikl/dlivetv-unofficial-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=timedotcc/dlivetv-unofficial-api&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/f75770899e224c5383b17f583fdc008d"/></a>
-    <a href="https://www.patreon.com/dliveapi"><img src="https://img.shields.io/badge/Donate-Patreon-e85b46.svg" alt="Patreon" /></a>
+    <a href="https://discord.gg/hRWra7r"><img alt="Discord" src="https://img.shields.io/discord/567034368002883594.svg?label=Discord&style=for-the-badge"></a>
+    <a href="https://github.com/timedotcc/dlivetv-unofficial-api/blob/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/timedotcc/dlivetv-unofficial-api.svg?style=for-the-badge"> </a>
+    <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img alt="npm" src="https://img.shields.io/npm/v/dlivetv-unofficial-api.svg?style=for-the-badge"></a>
+    <a href="https://beerpay.io/timedotcc/dlivetv-unofficial-api"><img alt="Beerpay" src="https://img.shields.io/beerpay/timedotcc/dlivetv-unofficial-api.svg?label=Donate&style=for-the-badge"></a>
     <br />
     <br />
     <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img src="https://nodei.co/npm/dlivetv-unofficial-api.png?compact=true"></a>
