@@ -8,7 +8,7 @@ class dliveInit extends dlive {
         _this.setChannel = channel;
         _this.setAuthkey = authkey;
         _this.client.on('connectFailed', function (error) {
-            console.log('Connect Error: ' + error.toString());
+            throw new Error(`Connect error: ${error.toString()}`);
         });
 
         _this.client.on('connect', function (connection) {
@@ -36,10 +36,10 @@ class dliveInit extends dlive {
             );
 
             connection.on('error', function (error) {
-                console.log("Connection Error: " + error.toString());
+                throw new Error(`Connection error: ${error.toString()}`);
             });
             connection.on('close', function () {
-                console.log('Connection Closed');
+                throw new Error('Connection closed');
             });
             connection.on('message', function (message) {
                 if (!message || message === null || message === undefined) return;
@@ -60,7 +60,7 @@ class dliveInit extends dlive {
                         } else if (remMessage.__typename === 'ChatDelete') {
                             _this.emit('ChatDelete', remMessage);
                         } else {
-                            console.log(`Not handled type: '${remMessage.__typename}'`);
+                            throw new Error(`Not handled type: '${remMessage.__typename}'`);
                         }
                     }
                 }
@@ -120,7 +120,7 @@ class dliveInit extends dlive {
         new this.request(this.getAuthkey, postData, (result) => {
             result = JSON.parse(result);
             if (result.errors !== undefined) {
-                throw new Error('Your access key is invalid!');
+                throw new Error(result.errors['0'].message);
             }
         });
     };
@@ -175,12 +175,12 @@ class dliveInit extends dlive {
         new this.request(this.getAuthkey, postData, (result) => {
             result = JSON.parse(result);
             if (result.errors !== undefined) {
-                throw new Error('Your access key is invalid!');
+                throw new Error(result.errors['0'].message);
             }
         });
     };
 
-    getChannelInformation(displayName, callback) {
+    getChannelInformationByDisplayName(displayName, callback) {
         let postData = JSON.stringify({
             "operationName": "LivestreamPage",
             "variables": {
@@ -193,12 +193,66 @@ class dliveInit extends dlive {
         new this.request(this.getAuthkey, postData, (result) => {
             result = JSON.parse(result);
             if (result.errors !== undefined) {
-                throw new Error('Your access key is invalid!');
+                throw new Error(result.errors['0'].message);
             }
-            
+
             callback(result.data.userByDisplayName);
         });
     };
+
+    getChannelTopContributorsByDisplayName(displayName, amountToShow, rule, callback) {
+        if (rule !== 'THIS_STREAM' && rule !== 'THIS_MONTH' && rule !== 'ALL_TIME') {
+            throw new Error('Invalid rule! Use one of the following rules: THIS_STREAM | THIS_MONTH | ALL_TIME');
+        }
+
+
+        if (this.getChannelInformationByDisplayName(displayName, (result) => {
+            if (result.livestream !== null) {
+                let postData = JSON.stringify(
+                    {
+                        "operationName": "TopContributors",
+                        "variables": {
+                            "displayname": displayName,
+                            "first": amountToShow,
+                            "rule": rule,
+                            "queryStream": true
+                        },
+                        "query": "query TopContributors($displayname: String!, $rule: ContributionSummaryRule, $first: Int, $after: String, $queryStream: Boolean!) {\n  userByDisplayName(displayname: $displayname) {\n    id\n    ...TopContributorsOfStreamerFrag @skip(if: $queryStream)\n    livestream @include(if: $queryStream) {\n      ...TopContributorsOfLivestreamFrag\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment TopContributorsOfStreamerFrag on User {\n  id\n  topContributions(rule: $rule, first: $first, after: $after) {\n    pageInfo {\n      endCursor\n      hasNextPage\n      __typename\n    }\n    list {\n      amount\n      contributor {\n        id\n        ...VDliveNameFrag\n        ...VDliveAvatarFrag\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment VDliveNameFrag on User {\n  displayname\n  partnerStatus\n  __typename\n}\n\nfragment VDliveAvatarFrag on User {\n  avatar\n  __typename\n}\n\nfragment TopContributorsOfLivestreamFrag on Livestream {\n  id\n  topContributions(first: $first, after: $after) {\n    pageInfo {\n      endCursor\n      hasNextPage\n      __typename\n    }\n    list {\n      amount\n      contributor {\n        id\n        ...VDliveNameFrag\n        ...VDliveAvatarFrag\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n"
+                    }
+                );
+                new this.request(this.getAuthkey, postData, (result) => {
+                    result = JSON.parse(result);
+                    if (result.errors !== undefined) {
+                        throw new Error(result.errors['0'].message);
+                    }
+
+                    callback(result.data.userByDisplayName.livestream.topContributions);
+                });
+            } else {
+                let postData = JSON.stringify(
+                    {
+                        "operationName": "TopContributors",
+                        "variables": {
+                            "displayname": displayName,
+                            "first": amountToShow,
+                            "rule": rule,
+                            "queryStream": false
+                        },
+                        "query": "query TopContributors($displayname: String!, $rule: ContributionSummaryRule, $first: Int, $after: String, $queryStream: Boolean!) {\n  userByDisplayName(displayname: $displayname) {\n    id\n    ...TopContributorsOfStreamerFrag @skip(if: $queryStream)\n    livestream @include(if: $queryStream) {\n      ...TopContributorsOfLivestreamFrag\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment TopContributorsOfStreamerFrag on User {\n  id\n  topContributions(rule: $rule, first: $first, after: $after) {\n    pageInfo {\n      endCursor\n      hasNextPage\n      __typename\n    }\n    list {\n      amount\n      contributor {\n        id\n        ...VDliveNameFrag\n        ...VDliveAvatarFrag\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment VDliveNameFrag on User {\n  displayname\n  partnerStatus\n  __typename\n}\n\nfragment VDliveAvatarFrag on User {\n  avatar\n  __typename\n}\n\nfragment TopContributorsOfLivestreamFrag on Livestream {\n  id\n  topContributions(first: $first, after: $after) {\n    pageInfo {\n      endCursor\n      hasNextPage\n      __typename\n    }\n    list {\n      amount\n      contributor {\n        id\n        ...VDliveNameFrag\n        ...VDliveAvatarFrag\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n"
+                    }
+                );
+                new this.request(this.getAuthkey, postData, (result) => {
+                    result = JSON.parse(result);
+                    if (result.errors !== undefined) {
+                        throw new Error(result.errors['0'].message);
+                    }
+
+                    callback(result.data.userByDisplayName.topContributions);
+                });
+            }
+
+        })) ;
+    }
 
 };
 
