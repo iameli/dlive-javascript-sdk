@@ -29,6 +29,12 @@ class dliver extends dliveInit {
             callback(result);
         });
     }
+    getGlobalInformation(callback) {
+        if (!this.initalized) return new Error("You have to create a class instance first!");
+        this.getDliveGlobalInformation( (result) => {
+            callback(result);
+        });
+    }
 
 }
 

@@ -51,21 +51,21 @@ class dliveInit extends dlive {
                     if (message.payload !== undefined) {
 
                         let remMessage = message.payload.data.streamMessageReceived['0'];
-						if (remMessage.__typename === 'ChatText') {
-							_this.emit('ChatText', remMessage);
-						} else if (remMessage.__typename === 'ChatGift') {
-							_this.emit('ChatGift', remMessage);
-						} else if (remMessage.__typename === 'ChatFollow') {
-							_this.emit('ChatFollow', remMessage);
-						} else if (remMessage.__typename === 'ChatDelete') {
-							_this.emit('ChatDelete', remMessage);
-						} else if (remMessage.__typename === 'ChatOffline') {
-							_this.emit('ChatOffline', remMessage);
-						} else if (remMessage.__typename === 'ChatLive') {
-							_this.emit('ChatLive', remMessage);
-						} else {
-							throw new Error(`Not handled type: '${remMessage.__typename}'`);
-						}
+                        if (remMessage.__typename === 'ChatText') {
+                            _this.emit('ChatText', remMessage);
+                        } else if (remMessage.__typename === 'ChatGift') {
+                            _this.emit('ChatGift', remMessage);
+                        } else if (remMessage.__typename === 'ChatFollow') {
+                            _this.emit('ChatFollow', remMessage);
+                        } else if (remMessage.__typename === 'ChatDelete') {
+                            _this.emit('ChatDelete', remMessage);
+                        } else if (remMessage.__typename === 'ChatOffline') {
+                            _this.emit('ChatOffline', remMessage);
+                        } else if (remMessage.__typename === 'ChatLive') {
+                            _this.emit('ChatLive', remMessage);
+                        } else {
+                            throw new Error(`Not handled type: '${remMessage.__typename}'`);
+                        }
                     }
                 }
             });
@@ -201,6 +201,22 @@ class dliveInit extends dlive {
             }
 
             callback(result.data.userByDisplayName);
+        });
+    };
+
+    getDliveGlobalInformation(callback) {
+        let postData = JSON.stringify({
+            "operationName": "GlobalInformation",
+            "variables": {},
+            "query": "query GlobalInformation {\n  globalInfo {\n    languages {\n      id\n      backendID\n      language\n      code\n      __typename\n    }\n    __typename\n  }\n}\n"
+        });
+        new this.request(this.getAuthkey, postData, (result) => {
+            result = JSON.parse(result);
+            if (result.errors !== undefined) {
+                throw new Error(result.errors['0'].message);
+            }
+
+            callback(result);
         });
     };
 
