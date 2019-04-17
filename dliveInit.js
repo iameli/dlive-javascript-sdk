@@ -1,5 +1,5 @@
 const dlive = require('./dlive');
-
+const streamRules = ["THIS_STREAM", "THIS_MONTH", "ALL_TIME"];
 class dliveInit extends dlive {
 
     constructor(channel, authkey) {
@@ -33,8 +33,7 @@ class dliveInit extends dlive {
                         },
                         extensions: {},
                         operationName: 'StreamMessageSubscription',
-                        query:
-                            'subscription StreamMessageSubscription($streamer: String!) {\n  streamMessageReceived(streamer: $streamer) {\n    type\n    ... on ChatGift {\n      id\n      gift\n      amount\n      recentCount\n      expireDuration\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatHost {\n      id\n      viewer\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatSubscription {\n      id\n      month\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatChangeMode {\n      mode\n    }\n    ... on ChatText {\n      id\n      content\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatFollow {\n      id\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatDelete {\n      ids\n    }\n    ... on ChatBan {\n      id\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatModerator {\n      id\n      ...VStreamChatSenderInfoFrag\n      add\n    }\n    ... on ChatEmoteAdd {\n      id\n      ...VStreamChatSenderInfoFrag\n      emote\n    }\n  }\n}\n\nfragment VStreamChatSenderInfoFrag on SenderInfo {\n  subscribing\n  role\n  roomRole\n  sender {\n    id\n    username\n    displayname\n    avatar\n    partnerStatus\n  }\n}\n'
+                        query: 'subscription StreamMessageSubscription($streamer: String!) {\n  streamMessageReceived(streamer: $streamer) {\n    type\n    ... on ChatGift {\n      id\n      gift\n      amount\n      recentCount\n      expireDuration\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatHost {\n      id\n      viewer\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatSubscription {\n      id\n      month\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatChangeMode {\n      mode\n    }\n    ... on ChatText {\n      id\n      content\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatFollow {\n      id\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatDelete {\n      ids\n    }\n    ... on ChatBan {\n      id\n      ...VStreamChatSenderInfoFrag\n    }\n    ... on ChatModerator {\n      id\n      ...VStreamChatSenderInfoFrag\n      add\n    }\n    ... on ChatEmoteAdd {\n      id\n      ...VStreamChatSenderInfoFrag\n      emote\n    }\n  }\n}\n\nfragment VStreamChatSenderInfoFrag on SenderInfo {\n  subscribing\n  role\n  roomRole\n  sender {\n    id\n    username\n    displayname\n    avatar\n    partnerStatus\n  }\n}\n'
                     }
                 })
             );
@@ -46,30 +45,11 @@ class dliveInit extends dlive {
                 throw new Error('Connection closed');
             });
             connection.on('message', function (message) {
-                if (!message || message === null || message === undefined) return;
-
-                if (message.type === 'ka' || message.type === 'connection_ack') return;
-                if (message.type === 'utf8') {
+                if (message && message.type === 'utf8') {
                     message = JSON.parse(message.utf8Data);
-
                     if (message.payload !== undefined) {
-
                         let remMessage = message.payload.data.streamMessageReceived['0'];
-                        if (remMessage.__typename === 'ChatText') {
-                            _this.emit('ChatText', remMessage);
-                        } else if (remMessage.__typename === 'ChatGift') {
-                            _this.emit('ChatGift', remMessage);
-                        } else if (remMessage.__typename === 'ChatFollow') {
-                            _this.emit('ChatFollow', remMessage);
-                        } else if (remMessage.__typename === 'ChatDelete') {
-                            _this.emit('ChatDelete', remMessage);
-                        } else if (remMessage.__typename === 'ChatOffline') {
-                            _this.emit('ChatOffline', remMessage);
-                        } else if (remMessage.__typename === 'ChatLive') {
-                            _this.emit('ChatLive', remMessage);
-                        } else {
-                            throw new Error(`Not handled type: '${remMessage.__typename}'`);
-                        }
+                        _this.emit(remMessage.__typename, remMessage);
                     }
                 }
             });
@@ -132,22 +112,14 @@ class dliveInit extends dlive {
         });
         new this.request(this.getAuthkey, postData, (result) => {
             result = JSON.parse(result);
-            if (result.errors !== undefined) {
-                throw new Error(result.errors['0'].message);
-            } else {
-                if (result.data.sendStreamchatMessage.message === null) {
-                    callback(false);
-                } else {
-                    callback(true);
-                }
-            }
+            return result.errors !== undefined ? new Error(result.errors['0'].message) : result.data.sendStreamchatMessage.message === null ? callback(false) : callback(true);
         });
-    };
+    }
 
     sendMessageToChannelChat(channel, message, callback) {
 
-        if (message === null) {
-            throw new Error('Please enter a text!');
+        if (!message) {
+            throw new TypeError('Please enter a text!');
         }
 
         let postData = JSON.stringify({
@@ -198,23 +170,13 @@ class dliveInit extends dlive {
         });
         new this.request(this.getAuthkey, postData, (result) => {
             result = JSON.parse(result);
-            if (result.errors !== undefined) {
-                throw new Error(result.errors['0'].message);
-            } else {
-                if (result.data.sendStreamchatMessage.message === null) {
-                    callback(false);
-                } else {
-                    callback(true);
-                }
-            }
+            result = JSON.parse(result);
+            return result.errors !== undefined ? new Error(result.errors['0'].message) : result.data.sendStreamchatMessage.message === null ? callback(false) : callback(true);
         });
-    };
+    }
 
     getChannelInformationByDisplayName(displayName, callback) {
-
-        if (displayName === null) {
-            throw new Error('Please enter a text!');
-        }
+        if (!displayName) throw new TypeError('Please enter a text!');
 
         let postData = JSON.stringify({
             "operationName": "LivestreamPage",
@@ -230,10 +192,9 @@ class dliveInit extends dlive {
             if (result.errors !== undefined) {
                 throw new Error(result.errors['0'].message);
             }
-
             callback(result.data.userByDisplayName);
         });
-    };
+    }
 
     getDliveGlobalInformation(callback) {
         let postData = JSON.stringify({
@@ -249,18 +210,16 @@ class dliveInit extends dlive {
 
             callback(result);
         });
-    };
+    }
 
     getChannelTopContributorsByDisplayName(displayName, amountToShow, rule, callback) {
-        if (rule !== 'THIS_STREAM' && rule !== 'THIS_MONTH' && rule !== 'ALL_TIME') {
+        if (!streamRules.includes(rule.toUpperCase())) {
             throw new Error('Invalid rule! Use one of the following rules: THIS_STREAM | THIS_MONTH | ALL_TIME');
         }
 
-
         if (this.getChannelInformationByDisplayName(displayName, (result) => {
-            if (result.livestream !== null) {
-                let postData = JSON.stringify(
-                    {
+                if (result.livestream !== null) {
+                    let postData = JSON.stringify({
                         "operationName": "TopContributors",
                         "variables": {
                             "displayname": displayName,
@@ -269,19 +228,17 @@ class dliveInit extends dlive {
                             "queryStream": true
                         },
                         "query": "query TopContributors($displayname: String!, $rule: ContributionSummaryRule, $first: Int, $after: String, $queryStream: Boolean!) {\n  userByDisplayName(displayname: $displayname) {\n    id\n    ...TopContributorsOfStreamerFrag @skip(if: $queryStream)\n    livestream @include(if: $queryStream) {\n      ...TopContributorsOfLivestreamFrag\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment TopContributorsOfStreamerFrag on User {\n  id\n  topContributions(rule: $rule, first: $first, after: $after) {\n    pageInfo {\n      endCursor\n      hasNextPage\n      __typename\n    }\n    list {\n      amount\n      contributor {\n        id\n        ...VDliveNameFrag\n        ...VDliveAvatarFrag\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment VDliveNameFrag on User {\n  displayname\n  partnerStatus\n  __typename\n}\n\nfragment VDliveAvatarFrag on User {\n  avatar\n  __typename\n}\n\nfragment TopContributorsOfLivestreamFrag on Livestream {\n  id\n  topContributions(first: $first, after: $after) {\n    pageInfo {\n      endCursor\n      hasNextPage\n      __typename\n    }\n    list {\n      amount\n      contributor {\n        id\n        ...VDliveNameFrag\n        ...VDliveAvatarFrag\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n"
-                    }
-                );
-                new this.request(this.getAuthkey, postData, (result) => {
-                    result = JSON.parse(result);
-                    if (result.errors !== undefined) {
-                        throw new Error(result.errors['0'].message);
-                    }
+                    });
+                    new this.request(this.getAuthkey, postData, (result) => {
+                        result = JSON.parse(result);
+                        if (result.errors !== undefined) {
+                            throw new Error(result.errors['0'].message);
+                        }
 
-                    callback(result.data.userByDisplayName.livestream.topContributions);
-                });
-            } else {
-                let postData = JSON.stringify(
-                    {
+                        callback(result.data.userByDisplayName.livestream.topContributions);
+                    });
+                } else {
+                    let postData = JSON.stringify({
                         "operationName": "TopContributors",
                         "variables": {
                             "displayname": displayName,
@@ -290,21 +247,19 @@ class dliveInit extends dlive {
                             "queryStream": false
                         },
                         "query": "query TopContributors($displayname: String!, $rule: ContributionSummaryRule, $first: Int, $after: String, $queryStream: Boolean!) {\n  userByDisplayName(displayname: $displayname) {\n    id\n    ...TopContributorsOfStreamerFrag @skip(if: $queryStream)\n    livestream @include(if: $queryStream) {\n      ...TopContributorsOfLivestreamFrag\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment TopContributorsOfStreamerFrag on User {\n  id\n  topContributions(rule: $rule, first: $first, after: $after) {\n    pageInfo {\n      endCursor\n      hasNextPage\n      __typename\n    }\n    list {\n      amount\n      contributor {\n        id\n        ...VDliveNameFrag\n        ...VDliveAvatarFrag\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n\nfragment VDliveNameFrag on User {\n  displayname\n  partnerStatus\n  __typename\n}\n\nfragment VDliveAvatarFrag on User {\n  avatar\n  __typename\n}\n\nfragment TopContributorsOfLivestreamFrag on Livestream {\n  id\n  topContributions(first: $first, after: $after) {\n    pageInfo {\n      endCursor\n      hasNextPage\n      __typename\n    }\n    list {\n      amount\n      contributor {\n        id\n        ...VDliveNameFrag\n        ...VDliveAvatarFrag\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n  __typename\n}\n"
-                    }
-                );
-                new this.request(this.getAuthkey, postData, (result) => {
-                    result = JSON.parse(result);
-                    if (result.errors !== undefined) {
-                        throw new Error(result.errors['0'].message);
-                    }
+                    });
+                    new this.request(this.getAuthkey, postData, (result) => {
+                        result = JSON.parse(result);
+                        if (result.errors !== undefined) {
+                            throw new Error(result.errors['0'].message);
+                        }
 
-                    callback(result.data.userByDisplayName.topContributions);
-                });
-            }
+                        callback(result.data.userByDisplayName.topContributions);
+                    });
+                }
 
-        })) ;
+            }));
     }
-
-};
+}
 
 module.exports = dliveInit;
