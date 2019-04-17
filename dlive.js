@@ -27,7 +27,6 @@ class dlive extends EventEmitter {
 
     get getChannel() {
         return this.channel;
-    
     }
 
     set setAuthkey(authkey) {

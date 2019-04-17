@@ -12,6 +12,10 @@ class dliveInit extends dlive {
         });
 
         _this.client.on('connect', function (connection) {
+            if (!_this.getChannel.includes('dlive-')) {
+                console.warn('WARNING: You are not using the Blockchain username, this can lead to problems. You can find the Blockchain username on the channel under the tab "Earnings".');
+            }
+
             console.log(`Joining ${_this.getChannel}`);
             connection.sendUTF(
                 JSON.stringify({
@@ -74,7 +78,12 @@ class dliveInit extends dlive {
         _this.client.connect('wss://graphigostream.prd.dlive.tv', 'graphql-ws');
     }
 
-    sendChatMessage(message) {
+    sendChatMessage(message, callback) {
+
+        if (message === null) {
+            throw new Error('Please enter a text!');
+        }
+
         let postData = JSON.stringify({
             operationName: 'SendStreamChatMessage',
             query: `mutation SendStreamChatMessage($input: SendStreamchatMessageInput!) {
@@ -125,11 +134,22 @@ class dliveInit extends dlive {
             result = JSON.parse(result);
             if (result.errors !== undefined) {
                 throw new Error(result.errors['0'].message);
+            } else {
+                if (result.data.sendStreamchatMessage.message === null) {
+                    callback(false);
+                } else {
+                    callback(true);
+                }
             }
         });
     };
 
-    sendMessageToChannelChat(channel, message) {
+    sendMessageToChannelChat(channel, message, callback) {
+
+        if (message === null) {
+            throw new Error('Please enter a text!');
+        }
+
         let postData = JSON.stringify({
             operationName: 'SendStreamChatMessage',
             query: `mutation SendStreamChatMessage($input: SendStreamchatMessageInput!) {
@@ -180,11 +200,22 @@ class dliveInit extends dlive {
             result = JSON.parse(result);
             if (result.errors !== undefined) {
                 throw new Error(result.errors['0'].message);
+            } else {
+                if (result.data.sendStreamchatMessage.message === null) {
+                    callback(false);
+                } else {
+                    callback(true);
+                }
             }
         });
     };
 
     getChannelInformationByDisplayName(displayName, callback) {
+
+        if (displayName === null) {
+            throw new Error('Please enter a text!');
+        }
+
         let postData = JSON.stringify({
             "operationName": "LivestreamPage",
             "variables": {

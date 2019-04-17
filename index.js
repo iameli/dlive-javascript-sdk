@@ -1,19 +1,20 @@
 const dliveInit = require('./dliveInit');
 
 class dliver extends dliveInit {
+
     constructor(channel, authKey) {
         super(channel, authKey);
         this.initalized = true;
     }
 
-    sendMessage(message) {
+    sendMessage(message, callback) {
         if (!this.initalized) return new Error("You have to create a class instance first!");
-        this.sendChatMessage(message);
+        this.sendChatMessage(message, callback);
     }
 
-    sendMessageToChannel(channel, message) {
+    sendMessageToChannel(channel, message, callback) {
         if (!this.initalized) return new Error("You have to create a class instance first!");
-        this.sendMessageToChannelChat(channel, message);
+        this.sendMessageToChannelChat(channel, message, callback);
     }
 
     getChannelInformation(displayname, callback) {
@@ -29,9 +30,10 @@ class dliver extends dliveInit {
             callback(result);
         });
     }
+
     getGlobalInformation(callback) {
         if (!this.initalized) return new Error("You have to create a class instance first!");
-        this.getDliveGlobalInformation( (result) => {
+        this.getDliveGlobalInformation((result) => {
             callback(result);
         });
     }
