@@ -66,16 +66,5 @@ function sendMessage (message) {
   })
 }
 ```
-## Todo
-
- - Message types:
-     - [X] ChatText
-	 - [X] ChatFollow
-	 - [X] ChatGift
-	 - [X] ChatDelete
-- [X] Send messages
-- [X] Get channel informations
-
-## Examples and functions
 	 
 More [examples](https://github.com/timedotcc/dlivetv-unofficial-api/wiki/Examples) and [functions](https://github.com/timedotcc/dlivetv-unofficial-api/wiki/Functions) can you find in our [wiki](https://github.com/timedotcc/dlivetv-unofficial-api/wiki).
