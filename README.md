@@ -15,7 +15,7 @@
 
 ## Example
 ```js
-import Dlive from './index'
+import Dlive from 'dlivetv-unofficial-api'
 
 const blockchainName = 'YOUR BLOCKCHAIN NAME (e.g. dlive-1234567890)' // Our Blockchain username
 const accessKey = 'YOUR KEY' // Our access key
