@@ -15,13 +15,13 @@
 
 ## Example
 ```js
-import Dlive from './index'
+import Dlive from 'dlivetv-unofficial-api'
 
 const blockchainName = 'YOUR BLOCKCHAIN NAME (e.g. dlive-1234567890)' // Our Blockchain username
 const accessKey = 'YOUR KEY' // Our access key
 
 // Chat cooldown
-let coolDown = 3000 // 3 seconds
+const coolDown = 3000 // 3 seconds
 
 // Parameter 1: Blockchain username
 // Parameter 2: Your access key for sending messages
@@ -65,7 +65,6 @@ function sendMessage (message) {
     setTimeout(sendMessage, coolDown, message)
   })
 }
-
 ```
 ## Todo
 
