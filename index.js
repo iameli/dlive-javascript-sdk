@@ -1,43 +1,63 @@
-const dliveInit = require('./dliveInit');
+import DliveInit from './dliveInit'
 
-class dliver extends dliveInit {
+export default class Dliver extends DliveInit {
+  constructor (channel, authKey) {
+    super(channel, authKey)
+    this.initalized = true
+  }
 
-    constructor(channel, authKey) {
-        super(channel, authKey);
-        this.initalized = true;
-    }
+  sendMessage (message) {
+    if (!this.initalized) return new Error('You have to create a class instance first!')
+    return new Promise((resolve, reject) => {
+      this.sendChatMessage(message).then((result) => {
+        resolve(result)
+      }).catch((error) => {
+        reject(error)
+      })
+    })
+  }
 
-    sendMessage(message, callback) {
-        if (!this.initalized) return new Error("You have to create a class instance first!");
-        this.sendChatMessage(message, callback);
-    }
+  sendMessageToChannel (channel, message) {
+    if (!this.initalized) return new Error('You have to create a class instance first!')
+    return new Promise((resolve, reject) => {
+      this.sendMessageToChannelChat(channel, message).then((result) => {
+        resolve(result)
+      }).catch((error) => {
+        reject(error)
+      })
+    })
+  }
 
-    sendMessageToChannel(channel, message, callback) {
-        if (!this.initalized) return new Error("You have to create a class instance first!");
-        this.sendMessageToChannelChat(channel, message, callback);
-    }
+  getChannelInformation (displayname) {
+    if (!this.initalized) return new Error('You have to create a class instance first!')
+    return new Promise((resolve, reject) => {
+      this.getChannelInformationByDisplayName(displayname).then((result) => {
+        resolve(result)
+      }).catch((error) => {
+        reject(error)
+      })
+    })
+  }
 
-    getChannelInformation(displayname, callback) {
-        if (!this.initalized) return new Error("You have to create a class instance first!");
-        this.getChannelInformationByDisplayName(displayname, (result) => {
-            callback(result);
-        });
-    }
+  getChannelTopContributors (displayname, amountToShow, rule) {
+    if (!this.initalized) return new Error('You have to create a class instance first!')
+    return new Promise((resolve, reject) => {
+      this.getChannelTopContributorsByDisplayName(displayname, amountToShow, rule).then((result) => {
+        resolve(result)
+      }).catch((error) => {
+        reject(error)
+      })
+    })
+  }
 
-    getChannelTopContributors(displayname, amountToShow, rule, callback) {
-        if (!this.initalized) return new Error("You have to create a class instance first!");
-        this.getChannelTopContributorsByDisplayName(displayname, amountToShow, rule, (result) => {
-            callback(result);
-        });
-    }
-
-    getGlobalInformation(callback) {
-        if (!this.initalized) return new Error("You have to create a class instance first!");
-        this.getDliveGlobalInformation((result) => {
-            callback(result);
-        });
-    }
-
+  getGlobalInformation () {
+    if (!this.initalized) return new Error('You have to create a class instance first!')
+    return new Promise((resolve, reject) => {
+      this.getDliveGlobalInformation().then((result) => {
+        resolve(result)
+      }).catch((error) => {
+        reject(error)
+      })
+    })
+  }
 }
-
-module.exports = dliver;

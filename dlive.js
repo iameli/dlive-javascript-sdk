@@ -6,37 +6,35 @@
 
  */
 
-const EventEmitter = require('events');
+import EventEmitter from 'events'
+import Https from 'https'
+import Websocket from 'websocket'
+import Webrequest from './webrequest'
 
-class dlive extends EventEmitter {
+export default class dlive extends EventEmitter {
+  constructor () {
+    super()
+    this.authkey = ''
+    this.channel = ''
+    this.https = Https
+    this.WebsocketClient = Websocket.client
+    this.client = new this.WebsocketClient()
+    this.Request = Webrequest
+  }
 
-    constructor() {
-        super();
-        this.authkey = '';
-        this.channel = '';
-        this.https = require('https');
-        this.websocketclient = require('websocket').client;
-        this.client = new this.websocketclient();
-        this.request = require('./webrequest');
-    }
+  get getAuthkey () {
+    return this.authkey
+  }
 
+  get getChannel () {
+    return this.channel
+  }
 
-    get getAuthkey() {
-        return this.authkey;
-    }
+  set setAuthkey (authkey) {
+    this.authkey = authkey
+  }
 
-    get getChannel() {
-        return this.channel;
-    }
-
-    set setAuthkey(authkey) {
-        this.authkey = authkey;
-    }
-
-    set setChannel(channel) {
-        this.channel = channel;
-    }
-    
-};
-
-module.exports = dlive;
+  set setChannel (channel) {
+    this.channel = channel
+  }
+}

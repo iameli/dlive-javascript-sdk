@@ -1,6 +1,6 @@
 {
   "name": "dlivetv-unofficial-api",
-  "version": "2.0.10",
+  "version": "2.1.10",
   "homepage": "https://github.com/timedotcc/dlivetv-unofficial-api#readme",
   "description": "Unofficial dlive.tv api",
   "main": "index.js",
@@ -9,7 +9,17 @@
     "https": "^1.0.0",
     "websocket": "^1.0.28"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

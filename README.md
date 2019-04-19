@@ -15,31 +15,57 @@
 
 ## Example
 ```js
-let dlive = require('dlivetv-unofficial-api');
+import Dlive from './index'
 
-// Parameter 1: the channel name / blockchain username
+const blockchainName = 'YOUR BLOCKCHAIN NAME (e.g. dlive-1234567890)' // Our Blockchain username
+const accessKey = 'YOUR KEY' // Our access key
+
+// Chat cooldown
+let coolDown = 3000 // 3 seconds
+
+// Parameter 1: Blockchain username
 // Parameter 2: Your access key for sending messages
+let example = new Dlive(blockchainName, accessKey) // Joining sampepper
 
-let example1 = new dlive('pdp', 'abc');  // Joining PewDiePie
-let example2 = new dlive('dlive-12278051', 'abc');  // Joining sampepper
+example.on('ChatText', (message) => {
+  console.log(`Messages in Channel ${example.getChannel}: ${message.content}`)
 
-example1.on('ChatText', (message) => {
-    console.log(`Messages in Channel ${example1.getChannel}: ${message.content}`);
-});
+  if (message.content === '!song') {
+    example.sendMessage('Currently no track available...').then((result) => {
+      console.log('Message sended!')
+      console.log(result)
+    }).catch((error) => {
+      console.log(`Error while sending message! ${error}`)
+      // Now we can use our function to try to resend, at this point you would directly use our own function. Please do not use this example in productive use, because it is ...
+      sendMessage('Currently no track available...')
+    })
+  }
+})
 
-example2.sendMessage('Hello! Its me, a bot.');
+example.on('ChatFollow', (message) => {
+  // Say thanks to this user for his follow!
+  sendMessage(`Thanks for the follow, @${message.sender.displayname}`)
+})
 
-example2.on('ChatText', (message) => {
-    console.log(`Messages in Channel ${example2.getChannel}: ${message.content}`);
-});
-example2.on('ChatFollow', (message) => {
-    // Say thanks to this user for his follow!
-    example2.sendMessage(`Thanks for the follow, @${message.sender.displayname}`);
-});
-example2.on('ChatGift', (message) => {
-    // Say thanks to this user for his gift!
-    example2.sendMessage(`Thanks for ${message.amount}x ${message.gift}, @${message.sender.displayname}`);
-});
+example.on('ChatGift', (message) => {
+  // Say thanks to this user for his gift!
+  sendMessage(`Thanks for ${message.amount}x ${message.gift}, @${message.sender.displayname}`)
+})
+
+// Get our channel informations
+example.getChannelInformationByDisplayName('pewdiepie' /* enter a displayname, not the Blockchain username */).then((result) => {
+  console.log(result)
+}).catch((error) => {
+  console.log(error)
+})
+
+function sendMessage (message) {
+  example.sendMessage(message).catch((error) => {
+    console.log(`Oh no.. error! ${error} - Retry in ${coolDown / 1000} seconds!`)
+    setTimeout(sendMessage, coolDown, message)
+  })
+}
+
 ```
 ## Todo
 
