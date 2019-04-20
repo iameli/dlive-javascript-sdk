@@ -60,4 +60,15 @@ export default class Dliver extends DliveInit {
       })
     })
   }
+
+  getChannelViewers (displayName) {
+    if (!this.initalized) return new Error('You have to create a class instance first!')
+    return new Promise((resolve, reject) => {
+      this.getChannelViewersByDisplayName(displayName).then((result) => {
+        resolve(result)
+      }).catch((error) => {
+        reject(error)
+      })
+    })
+  }
 }
