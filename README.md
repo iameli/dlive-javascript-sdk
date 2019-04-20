@@ -10,7 +10,7 @@
 	<a href="#"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/timedotcc/dlivetv-unofficial-api.svg?style=for-the-badge"></a>
     <br />
     <br />
-    <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img src="https://nodei.co/npm/dlivetv-unofficial-api.png?compact=true"></a>
+    <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img src="https://nodei.co/npm/dlivetv-unofficial-api.png?mini=true"></a>
 </p>
 
 ## Example
