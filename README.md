@@ -7,7 +7,7 @@
     <a href="https://github.com/timedotcc/dlivetv-unofficial-api/blob/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/timedotcc/dlivetv-unofficial-api.svg?style=for-the-badge"></a>
     <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img alt="npm" src="https://img.shields.io/npm/v/dlivetv-unofficial-api.svg?style=for-the-badge"></a>
     <a href="https://beerpay.io/timedotcc/dlivetv-unofficial-api"><img alt="Beerpay" src="https://img.shields.io/beerpay/timedotcc/dlivetv-unofficial-api.svg?label=Donate&style=for-the-badge"></a>
-	<a href="#"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/timedotcc/dlivetv-unofficial-api.svg?style=for-the-badge"></a>
+	<a href="#"><img alt="Travis" src="https://img.shields.io/travis/com/timedotcc/dlivetv-unofficial-api.svg?style=for-the-badge"</a>
     <br />
     <br />
     <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img src="https://nodei.co/npm/dlivetv-unofficial-api.png?mini=true"></a>
@@ -15,7 +15,7 @@
 
 ## Example
 ```js
-import Dlive from 'dlivetv-unofficial-api'
+const  { Dlive } = require('dlivetv-unofficial-api')
 
 const blockchainName = 'YOUR BLOCKCHAIN NAME (e.g. dlive-1234567890)' // Our Blockchain username
 const accessKey = 'YOUR KEY' // Our access key

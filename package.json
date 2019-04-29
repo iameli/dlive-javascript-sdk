@@ -1,18 +1,15 @@
 {
   "name": "dlivetv-unofficial-api",
-  "version": "2.1.12",
+  "version": "2.1.13",
   "homepage": "https://github.com/timedotcc/dlivetv-unofficial-api#readme",
   "description": "Unofficial dlive.tv api",
-  "main": "index.js",
+  "main": "./src/index.js",
   "dependencies": {
-    "events": "^3.0.0",
-    "https": "^1.0.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
     "websocket": "^1.0.28"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
-    "@babel/preset-env": "^7.4.3",
     "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.17.2",
@@ -21,11 +18,14 @@
     "eslint-plugin-standard": "^4.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "yarn lint && yarn test:raw",
+    "lint": "eslint src",
+    "test:raw": "mocha"
   },
   "author": "Nils Kleinert",
   "license": "MIT",
   "contributors": [
-    "Captien"
+    "Captien",
+    "Ikd70"
   ]
 }
