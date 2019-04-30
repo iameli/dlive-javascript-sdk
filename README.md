@@ -1,4 +1,4 @@
-This project was forked from [the last MIT-redistributable commit of dlive-unofficial-api-js](https://github.com/unofficial-dlive-tv-api/dlive-javascript-sdk-js/commit/86e4c1b0a6e94a35cea9f6a09f4a2128e9e9112b). They've moved to a [non-OSI approved license](https://opensource.org/licenses); this fork will remain MIT licensed.
+This project was forked from [the last MIT-redistributable commit of dlive-unofficial-api-js](https://github.com/unofficial-dlive-tv-api/dlivetv-unofficial-api-js/commit/86e4c1b0a6e94a35cea9f6a09f4a2128e9e9112b). They've moved to a [non-OSI approved license](https://opensource.org/licenses); this fork will remain MIT licensed.
 
 <p align="center">
     <a href="https://discord.gg/JjwMkK2"><img alt="Discord" src="https://img.shields.io/discord/150889563970076672.svg?label=Discord&style=for-the-badge"></a>
