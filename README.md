@@ -1,5 +1,5 @@
 
-This project was forked from [the last MIT-redistributable commit of dlive-unofficial-api-js](86e4c1b0a6e94a35cea9f6a09f4a2128e9e9112b). They've moved to a nonfree license; I'll be maintaining the MIT-licensed fork here.
+This project was forked from [the last MIT-redistributable commit of dlive-unofficial-api-js](86e4c1b0a6e94a35cea9f6a09f4a2128e9e9112b). They've moved to a nonfree license; this fork will remain freely licensed.
 
 ## Example
 ```js
