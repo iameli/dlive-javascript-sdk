@@ -1,5 +1,15 @@
 
-This project was forked from [the last MIT-redistributable commit of dlive-unofficial-api-js](86e4c1b0a6e94a35cea9f6a09f4a2128e9e9112b). They've moved to a [non-OSI approved license](https://opensource.org/licenses); this fork will remain MIT licensed.
+This project was forked from [the last MIT-redistributable commit of dlive-unofficial-api-js](https://github.com/unofficial-dlive-tv-api/dlive-javascript-sdk-js/commit/86e4c1b0a6e94a35cea9f6a09f4a2128e9e9112b). They've moved to a [non-OSI approved license](https://opensource.org/licenses); this fork will remain MIT licensed.
+
+<p align="center">
+    <a href="https://discord.gg/JjwMkK2"><img alt="Discord" src="https://img.shields.io/discord/150889563970076672.svg?label=Discord&style=for-the-badge"></a>
+    <a href="https://github.com/iameli/dlive-javascript-sdk/blob/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/iameli/dlive-javascript-sdk.svg?style=for-the-badge"></a>
+    <a href="https://nodei.co/npm/dlive-javascript-sdk/"><img alt="npm" src="https://img.shields.io/npm/v/dlive-javascript-sdk.svg?style=for-the-badge"></a>
+       <a href="#"><img alt="Travis" src="https://img.shields.io/travis/com/iameli/dlive-javascript-sdk.svg?style=for-the-badge"</a>
+    <br />
+    <br />
+    <a href="https://nodei.co/npm/dlive-javascript-sdk/"><img src="https://nodei.co/npm/dlive-javascript-sdk.png?mini=true"></a> 
+</p>
 
 ## Example
 ```js

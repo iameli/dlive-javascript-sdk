@@ -22,11 +22,11 @@
     "lint": "eslint src",
     "test:raw": "mocha"
   },
-  "author": "Nils Kleinert",
+  "author": "Eli Mallon",
   "license": "MIT",
   "contributors": [
     "Captien",
     "Ikd70",
-    "Eli Mallon"
+    "Nils Kleinert"
   ]
 }
