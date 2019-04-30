@@ -1,7 +1,7 @@
 {
-  "name": "dlivetv-unofficial-api",
+  "name": "dlive-javascript-sdk",
   "version": "2.1.13",
-  "homepage": "https://github.com/timedotcc/dlivetv-unofficial-api#readme",
+  "homepage": "https://github.com/iameli/dlive-javascript-sdk#readme",
   "description": "Unofficial dlive.tv api",
   "main": "./src/index.js",
   "dependencies": {
@@ -26,6 +26,7 @@
   "license": "MIT",
   "contributors": [
     "Captien",
-    "Ikd70"
+    "Ikd70",
+    "Eli Mallon"
   ]
 }

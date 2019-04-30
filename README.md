@@ -3,7 +3,7 @@ This project was forked from [the last MIT-redistributable commit of dlive-unoff
 
 ## Example
 ```js
-const  { Dlive } = require('dlivetv-unofficial-api')
+const  { Dlive } = require('dlive-javascript-sdk')
 
 const blockchainName = 'YOUR BLOCKCHAIN NAME (e.g. dlive-1234567890)' // Our Blockchain username
 const accessKey = 'YOUR KEY' // Our access key
@@ -54,5 +54,3 @@ function sendMessage (message) {
   })
 }
 ```
-	 
-More [examples](https://github.com/timedotcc/dlivetv-unofficial-api/wiki/Examples) and [functions](https://github.com/timedotcc/dlivetv-unofficial-api/wiki/Functions) can you find in our [wiki](https://github.com/timedotcc/dlivetv-unofficial-api/wiki).
