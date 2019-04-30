@@ -4,7 +4,7 @@ This project was forked from [the last MIT-redistributable commit of dlive-unoff
     <a href="https://discord.gg/JjwMkK2"><img alt="Discord" src="https://img.shields.io/discord/150889563970076672.svg?label=Discord&style=for-the-badge"></a>
     <a href="https://github.com/iameli/dlive-javascript-sdk/blob/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/iameli/dlive-javascript-sdk.svg?style=for-the-badge&cacheSeconds=30"></a>
     <a href="https://nodei.co/npm/dlive-javascript-sdk/"><img alt="npm" src="https://img.shields.io/npm/v/dlive-javascript-sdk.svg?style=for-the-badge"></a>
-       <a href="#"><img alt="Travis" src="https://img.shields.io/travis/com/iameli/dlive-javascript-sdk.svg?style=for-the-badge"</a>
+       <a href="https://travis-ci.org/iameli/dlive-javascript-sdk"><img alt="Travis" src="https://img.shields.io/travis/iameli/dlive-javascript-sdk.svg?style=for-the-badge"></a>
     <br />
     <br />
     <a href="https://nodei.co/npm/dlive-javascript-sdk/"><img src="https://nodei.co/npm/dlive-javascript-sdk.png?mini=true"></a>
