@@ -1,17 +1,5 @@
 
-<p align="center">
-    <a href="#"><img src="https://i.imgur.com/XXdD3AH.png" /></a>
-    <br />
-    <br />
-    <a href="https://discord.gg/hRWra7r"><img alt="Discord" src="https://img.shields.io/discord/567034368002883594.svg?label=Discord&style=for-the-badge"></a>
-    <a href="https://github.com/timedotcc/dlivetv-unofficial-api/blob/master/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/timedotcc/dlivetv-unofficial-api.svg?style=for-the-badge"></a>
-    <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img alt="npm" src="https://img.shields.io/npm/v/dlivetv-unofficial-api.svg?style=for-the-badge"></a>
-    <a href="https://beerpay.io/timedotcc/dlivetv-unofficial-api"><img alt="Beerpay" src="https://img.shields.io/beerpay/timedotcc/dlivetv-unofficial-api.svg?label=Donate&style=for-the-badge"></a>
-	<a href="#"><img alt="Travis" src="https://img.shields.io/travis/com/timedotcc/dlivetv-unofficial-api.svg?style=for-the-badge"</a>
-    <br />
-    <br />
-    <a href="https://nodei.co/npm/dlivetv-unofficial-api/"><img src="https://nodei.co/npm/dlivetv-unofficial-api.png?mini=true"></a>
-</p>
+This project was forked from [the last MIT-redistributable commit of dlive-unofficial-api-js](86e4c1b0a6e94a35cea9f6a09f4a2128e9e9112b). They've moved to a nonfree license; I'll be maintaining the MIT-licensed fork here.
 
 ## Example
 ```js
